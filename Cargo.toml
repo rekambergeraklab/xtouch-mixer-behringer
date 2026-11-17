@@ -1,0 +1,25 @@
+[package]
+name = "xtmixer"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+eframe = "0.27"
+egui = "0.27"
+crossbeam-channel = "0.5"
+midir = "0.9"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+log = "0.4"
+env_logger = "0.11"
+jack = "0.11"        # Added for the JACK audio engine
+
+# CPU OPTIMIZATION: Runs dependencies at full speed even in Debug mode.
+# Keeps the 64-channel 60fps GUI silky smooth without slow compile times.
+[profile.dev.package."*"]
+opt-level = 3
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
